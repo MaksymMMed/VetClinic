@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace VetClinic.DAL.Entities
 {
-    public class Animal:BaseEntity
+    public class Animal
     {
+        public int Id { get; set; }
         public string Name { get;set; }
         public int Age { get;set; }
         public string Description { get; set; }
@@ -15,7 +16,7 @@ namespace VetClinic.DAL.Entities
         public Kind AnimalKind { get;set; }
         public int OwnerId { get;set; }
         public Customer Owner { get;set; }
-        public List<Reception>? Receptions { get; set; }
+        public List<Appointment>? Appointments { get; set; }
 
         public enum Sex
         {

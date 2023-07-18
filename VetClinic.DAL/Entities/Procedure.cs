@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace VetClinic.DAL.Entities
 {
-    public class Reception:BaseEntity
+    public class Procedure
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public bool IsOver { get; set; }
-        public int DoctorId { get; set; }
-        public int AnimalId { get; set; }
-        public Doctor Doctor { get; set; }
-        public Animal Animal { get; set; }
-        public List<ProcedureType> Procedures { get; set; }
-
-
+        public int Id { get; set; }
+        public int AppointmentId { get; set; }
+        public Appointment Appointment { get; set; }
+        public int Price { get; set; }
+        public ProcedureType ProcedureName { get; set; }
         public enum ProcedureType
         {
             PhysicalExamination,
@@ -31,6 +26,5 @@ namespace VetClinic.DAL.Entities
             Electocardiodiagram,
             SurgicalProcedures
         }
-
     }
 }
