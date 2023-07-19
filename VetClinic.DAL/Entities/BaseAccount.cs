@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace VetClinic.DAL.Entities
 {
-    public class Customer:BaseAccount
+    public abstract class BaseAccount : IdentityUser
     {
-        public List<Animal>? Animals { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
     }
 }

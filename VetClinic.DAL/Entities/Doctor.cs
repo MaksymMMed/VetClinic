@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace VetClinic.DAL.Entities
 {
-    public class Doctor:IdentityUser
+    public class Doctor:BaseAccount
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
         public List<Appointment>? Appointments { get; set; }
-
     }
 }

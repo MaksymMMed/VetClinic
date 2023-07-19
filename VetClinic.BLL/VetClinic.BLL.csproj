@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VetClinic.DAL\VetClinic.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
