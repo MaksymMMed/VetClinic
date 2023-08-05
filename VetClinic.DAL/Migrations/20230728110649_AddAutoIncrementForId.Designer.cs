@@ -12,8 +12,8 @@ using VetClinic.DAL;
 namespace VetClinic.DAL.Migrations
 {
     [DbContext(typeof(AppDatabaseContext))]
-    [Migration("20230719194714_Initial")]
-    partial class Initial
+    [Migration("20230728110649_AddAutoIncrementForId")]
+    partial class AddAutoIncrementForId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,6 +242,7 @@ namespace VetClinic.DAL.Migrations
             modelBuilder.Entity("VetClinic.DAL.Entities.Animal", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Age")
@@ -289,6 +290,7 @@ namespace VetClinic.DAL.Migrations
             modelBuilder.Entity("VetClinic.DAL.Entities.Appointment", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnimalId")
@@ -312,7 +314,7 @@ namespace VetClinic.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Receptions");
+                    b.ToTable("Appointments");
 
                     b.HasData(
                         new
@@ -320,9 +322,9 @@ namespace VetClinic.DAL.Migrations
                             Id = "4",
                             AnimalId = "1",
                             DoctorId = "3",
-                            EndTime = new DateTime(2023, 7, 20, 0, 47, 14, 301, DateTimeKind.Local).AddTicks(5512),
+                            EndTime = new DateTime(2023, 7, 28, 16, 6, 48, 700, DateTimeKind.Local).AddTicks(3389),
                             IsOver = true,
-                            StartTime = new DateTime(2023, 7, 19, 22, 47, 14, 301, DateTimeKind.Local).AddTicks(5442)
+                            StartTime = new DateTime(2023, 7, 28, 14, 6, 48, 700, DateTimeKind.Local).AddTicks(3329)
                         });
                 });
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetClinic.DAL;
 
@@ -11,9 +12,11 @@ using VetClinic.DAL;
 namespace VetClinic.DAL.Migrations
 {
     [DbContext(typeof(AppDatabaseContext))]
-    partial class AppDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230728105415_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,7 +242,6 @@ namespace VetClinic.DAL.Migrations
             modelBuilder.Entity("VetClinic.DAL.Entities.Animal", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Age")
@@ -287,7 +289,6 @@ namespace VetClinic.DAL.Migrations
             modelBuilder.Entity("VetClinic.DAL.Entities.Appointment", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnimalId")
@@ -319,9 +320,9 @@ namespace VetClinic.DAL.Migrations
                             Id = "4",
                             AnimalId = "1",
                             DoctorId = "3",
-                            EndTime = new DateTime(2023, 7, 28, 16, 6, 48, 700, DateTimeKind.Local).AddTicks(3389),
+                            EndTime = new DateTime(2023, 7, 28, 15, 54, 15, 239, DateTimeKind.Local).AddTicks(4841),
                             IsOver = true,
-                            StartTime = new DateTime(2023, 7, 28, 14, 6, 48, 700, DateTimeKind.Local).AddTicks(3329)
+                            StartTime = new DateTime(2023, 7, 28, 13, 54, 15, 239, DateTimeKind.Local).AddTicks(4764)
                         });
                 });
 

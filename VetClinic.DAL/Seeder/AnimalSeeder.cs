@@ -14,9 +14,9 @@ namespace VetClinic.DAL.Seeder
 
         List<Animal> AnimalsList = new()
         {
-            new Animal 
+            new Animal
             {
-                Id  = "1",
+                Id  = Guid.NewGuid().ToString(),
                 OwnerId = "2",
                 Name = "Catalina",
                 AnimalKind = Animal.Kind.Cat,

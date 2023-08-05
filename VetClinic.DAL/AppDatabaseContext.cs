@@ -11,7 +11,7 @@ using VetClinic.DAL.EntitiesConfigs;
 
 namespace VetClinic.DAL
 {
-    public class AppDatabaseContext : IdentityDbContext
+    public class AppDatabaseContext : IdentityDbContext<BaseAccount>
     {
         public AppDatabaseContext(DbContextOptions<AppDatabaseContext> options) : base(options)
         {

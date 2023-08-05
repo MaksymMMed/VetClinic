@@ -18,6 +18,10 @@ namespace VetClinic.DAL.EntitiesConfigs
                 .HasKey(x => x.Id);
 
             builder
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
+            builder
                 .Property(x => x.StartTime)
                 .IsRequired();
 

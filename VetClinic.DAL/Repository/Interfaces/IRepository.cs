@@ -8,7 +8,7 @@ namespace VetClinic.DAL.Repository.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<List<T>> GetAllAsync();
 
         Task<T> GetByIdAsync(string id);
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VetClinic.DAL.Exeptions
 {
-    public class NotFoundExeption : Exception
+    public class NotFoundException : Exception
     {
-        public NotFoundExeption(string message)  : base(message)
+        public NotFoundException(string message)  : base(message)
         {
 
         } 

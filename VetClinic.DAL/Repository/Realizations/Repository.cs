@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VetClinic.DAL.Exeptions;
 using VetClinic.DAL.Repository.Interfaces;
 
 namespace VetClinic.DAL.Repository.Realizations
@@ -19,17 +20,20 @@ namespace VetClinic.DAL.Repository.Realizations
         protected readonly AppDatabaseContext databaseContext;
 
         protected readonly DbSet<T> table;
-        public virtual async Task<IEnumerable<T>> GetAllAsync() => await table.ToListAsync();
+        public virtual async Task<List<T>> GetAllAsync() => await table.ToListAsync();
 
         public abstract Task<T> GetByIdAsync(string id);
         public virtual async Task InsertAsync(T entity) => await table.AddAsync(entity);
 
-        public virtual async Task UpdateAsync(T entity) =>
-            await Task.Run(() => table.Update(entity));
+        public virtual async Task UpdateAsync(T entity) => await Task.Run(() => table.Update(entity));
 
         public virtual async Task DeleteAsync(string id)
         {
-            var entity = await GetByIdAsync(id);
+            var entity = await table.FindAsync(id);
+            if (entity is null)
+            {
+                throw new NotFoundException($"{ typeof(T)} with id {id} not found");
+            }
             await Task.Run(() => table.Remove(entity));
         }
     }
