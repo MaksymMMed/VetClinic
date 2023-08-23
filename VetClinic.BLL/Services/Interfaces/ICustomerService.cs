@@ -11,8 +11,8 @@ namespace VetClinic.BLL.Services.Interfaces
 {
     public interface ICustomerService
     {
-        Task SingUp(SignUpRequest request);
-        Task SingIn(SignInRequest request);
+        Task<JwtResponse> SingUp(SignUpRequest request);
+        Task<JwtResponse> SingIn(SignInRequest request);
         Task DeleteEntityAsync(string id);
         Task<CustomerResponse> GetEntityByIdAsync(string id);
         Task<List<CustomerResponse>> GetAllEntitiesAsync();

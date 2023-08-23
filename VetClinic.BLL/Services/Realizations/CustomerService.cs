@@ -11,6 +11,10 @@ using VetClinic.BLL.Extension;
 using VetClinic.DAL.Entities;
 using VetClinic.DAL.UnitOfWork;
 using VetClinic.BLL.DTO.Request;
+using VetClinic.BLL.TokenFactory;
+using VetClinic.DAL.Exeptions;
+using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace VetClinic.BLL.Services.Realizations
 {
@@ -19,11 +23,13 @@ namespace VetClinic.BLL.Services.Realizations
     {
         private readonly IUnitOfWork Unit;
         private readonly IMapper Mapper;
+        private readonly IJwtTokenFactory TokenFactory; 
 
-        public CustomerService(IUnitOfWork unit, IMapper mapper)
+        public CustomerService(IUnitOfWork unit, IMapper mapper, IJwtTokenFactory factory)
         {
             Unit = unit;
             Mapper = mapper;
+            TokenFactory = factory;
         }
 
         public async Task DeleteEntityAsync(string id)
@@ -45,15 +51,45 @@ namespace VetClinic.BLL.Services.Realizations
             return Mapper.Map<CustomerResponse>(Item);
         }
 
-        public async Task SingIn(SignInRequest request)
+        public async Task<JwtResponse> SingIn(SignInRequest request)
         {
             var user = await Unit.UserManager.FindByEmailAsync(request.Email.Trim());
 
+            if (user is null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            if (!await Unit.UserManager.CheckPasswordAsync(user,request.Password.Trim()))
+            {
+                throw new NotFoundException("Wrong password");
+            }
+
+            var JwtToken = TokenFactory.BuildToken(user);
+            return new JwtResponse() { Token = SerializeToken(JwtToken) };
+
         }
 
-        public Task SingUp(SignUpRequest request)
+        private string SerializeToken(JwtSecurityToken jwtToken) => new JwtSecurityTokenHandler().WriteToken(jwtToken);
+
+        public async Task<JwtResponse> SingUp(SignUpRequest request)
         {
-            throw new NotImplementedException();
+            var user = Mapper.Map<Customer>(request);
+            var signUpResult = await Unit.UserManager.CreateAsync(user, request.Password);
+
+            if (!signUpResult.Succeeded)
+            {
+                string errors = string.Join("\n",
+                    signUpResult.Errors.Select(error => error.Description));
+
+                throw new ArgumentException(errors);
+            }
+
+            await Unit.SaveChangesAsync();
+
+            var JwtToken = TokenFactory.BuildToken(user);
+            return new JwtResponse() { Token = SerializeToken(JwtToken) };
+
         }
     }
 }

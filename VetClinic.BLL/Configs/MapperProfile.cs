@@ -33,6 +33,9 @@ namespace VetClinic.BLL.Configs
         void CustomerProfile()
         {
             CreateMap<Customer, CustomerResponse>();
+            CreateMap<SignUpRequest, Customer>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Name + src.Surname))
+                .ForMember(dest => dest.UserType, opt => opt.MapFrom(src => "Customer"));
         }
         void DoctorProfile() 
         {

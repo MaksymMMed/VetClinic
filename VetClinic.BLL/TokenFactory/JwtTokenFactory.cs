@@ -23,9 +23,10 @@ namespace VetClinic.BLL.TokenFactory
 
         private static List<Claim> GetClaims(BaseAccount user) => new()
         {
-            new(JwtRegisteredClaimNames.UniqueName, user.UserName),
-            new(ClaimTypes.Name, user.UserName),
-            new(ClaimTypes.Authentication, user.Id),
+            new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim("UserType", user.UserType),
+            new Claim(ClaimTypes.Authentication, user.Id),
         };
 
         public JwtTokenFactory(JwtTokenConfiguration jwtTokenConfiguration) =>

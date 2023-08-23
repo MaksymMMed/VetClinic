@@ -15,6 +15,9 @@ namespace VetClinic.DAL.EntitiesConfigs
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
             builder
+                .HasDiscriminator<string>(x => x.UserType);
+
+            builder
                 .Property(x => x.Name)
                 .IsRequired()
                 .HasMaxLength(25);

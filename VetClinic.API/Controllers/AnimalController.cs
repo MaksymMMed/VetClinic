@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using VetClinic.BLL.DTO.Request;
 using VetClinic.BLL.DTO.Response;
 using VetClinic.BLL.Services.Interfaces;
@@ -20,6 +22,7 @@ namespace VetClinic.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "LowLevel")]
         [Route("[action]/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -42,6 +45,7 @@ namespace VetClinic.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "HighLevel")]
         [Route("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -59,6 +63,7 @@ namespace VetClinic.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "HighLevel")]
         [Route("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -76,6 +81,7 @@ namespace VetClinic.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "LowLevel")]
         [Route("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
